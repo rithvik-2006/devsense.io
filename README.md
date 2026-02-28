@@ -1,72 +1,138 @@
-# DevSense
+# ⚡ DevSense — AI that understands your codebase
 
-**Developer Intelligence CLI** — understand your codebase and get answers using AI.
+**Ask your repository anything — directly from your terminal.**
 
-**Website:** [devsense.dev](https://devsense.dev)
+DevSense scans your project and gives instant AI answers about how your code works.
+
+👉 No IDE plugin  
+👉 No manual searching  
+👉 Just your CLI
+
+**Website:** [devsense.dev](https://devsense-dev.vercel.app/)
+
+---
+## 🧠 What DevSense Can Do
+
+### 🔎 Understand Any Repo Instantly
+
+Join a new project and ask:
+
+```bash
+devsense ask "How does authentication work?"
+```
+
+Get architecture-level answers using real project context.
 
 ---
 
-## Features
+### 📄 Explain Files in Seconds
 
-- **Repo awareness** — Scan and analyze project structure, language, frameworks, and databases
-- **Multi-ecosystem** — Node, Flutter, Python, Rust (and more via ecosystem detection)
-- **AI-powered** — Ask questions, explain files, or chat interactively (Gemini)
-- **Project map** — See where auth, API, UI, and database live in your repo
+```bash
+devsense explain src/auth.ts
+```
+
+Understand complex files without reading hundreds of lines.
 
 ---
 
-## Install
+### 🗺️ Map Your Project Architecture
+
+```bash
+devsense map
+```
+
+Instantly locate:
+
+* Auth
+* API
+* Database
+* UI
+* Utilities
+
+---
+
+### 💬 Chat With Your Codebase
+
+```bash
+devsense chat
+```
+
+Interactive AI session powered by your repo.
+
+---
+
+## ⚡ Quick Start (30 seconds)
+
+Install globally:
 
 ```bash
 npm install -g devsense
-# or
-npm link
 ```
 
----
-
-## Quick start
+Initialize inside any project:
 
 ```bash
-# In any project
 devsense init
 ```
 
-Add your Gemini API key to `.devsense/.env`:
+Add your Gemini API key:
 
 ```
+.devsense/.env
 GEMINI_API_KEY=your_key
 ```
 
-Then:
+Start exploring:
 
 ```bash
-devsense summary                    # Project overview
-devsense ask "How does auth work?"  # Ask about the codebase
-devsense explain src/auth.ts        # Explain a file
-devsense chat                       # Interactive session
-devsense map                        # Project structure map
-devsense doctor                     # Check setup
+devsense summary
+devsense ask "What does this project do?"
 ```
 
 ---
 
-## Commands
+## 🧩 Commands
 
-| Command | Description |
-|---------|-------------|
-| `devsense` | Show welcome and commands |
-| `devsense init` | Initialize DevSense in the project |
-| `devsense summary` | Show language, frameworks, databases, file count |
-| `devsense ask "<question>"` | Ask a question about the repo (streaming) |
-| `devsense explain <file>` | AI explanation of a file |
-| `devsense chat` | Interactive AI chat |
-| `devsense map` | Map directories (Auth, API, UI, etc.) |
-| `devsense doctor` | Run diagnostics |
+| Command                     | Description            |
+| --------------------------- | ---------------------- |
+| `devsense init`             | Setup DevSense         |
+| `devsense summary`          | Project overview       |
+| `devsense ask "<question>"` | Ask your repo anything |
+| `devsense explain <file>`   | Explain file purpose   |
+| `devsense chat`             | Interactive session    |
+| `devsense map`              | Project architecture   |
+| `devsense doctor`           | Diagnose setup         |
 
 ---
 
-## Build from source
+## 🚀 Why DevSense?
+
+Most AI tools live inside editors.
+
+DevSense lives where developers already work:
+
+✅ Terminal native  
+✅ Repo-aware AI  
+✅ Multi-language support  
+✅ Zero IDE lock-in
+
+Think:
+
+**Cursor for your terminal.**
+
+---
+
+## 🧱 Supported Ecosystems
+
+* Node.js
+* Python
+* Flutter
+* Rust
+* Extensible analyzer system
+
+---
+
+## 🛠️ Build From Source
 
 ```bash
 git clone <repo>
@@ -78,6 +144,16 @@ npm link
 
 ---
 
-## License
+## ⭐ Contributing
+
+⭐ **Trusted by early developers exploring AI-native workflows.**
+
+Feedback, issues, and ideas are welcome.
+
+If DevSense helped you, consider starring the repo ⭐
+
+---
+
+## 📜 License
 
 ISC
