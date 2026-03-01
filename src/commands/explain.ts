@@ -5,12 +5,21 @@ import ora from "ora";
 import { scanProject } from "../core/scanner";
 import { analyzeProject } from "../core/analyzer";
 import { buildContextForFile } from "../core/contextBuilder";
-import { GeminiProvider } from "../providers/gemini";
+import { loadConfig } from "../core/config";
+import { getProvider } from "../providers/registry";
 import { printSessionHeader } from "../ui/header";
 import { renderAI, formatSections } from "../ui/renderer";
 import { showCommandSuggestions } from "../ui/tips";
 
 export async function explain(fileArg: string) {
+  let config;
+  try {
+    config = loadConfig();
+  } catch (e) {
+    console.error((e as Error).message);
+    process.exit(1);
+  }
+
   const start = Date.now();
   const cwd = process.cwd();
   const resolved = path.join(cwd, fileArg);
@@ -45,8 +54,11 @@ export async function explain(fileArg: string) {
   }
 
   const prompt = buildContextForFile(fileArg, content, info);
-  const provider = new GeminiProvider();
-  const answer = await provider.askNoStream(prompt);
+  const provider = getProvider(config.provider, config.model);
+  const answer =
+    provider.askNoStream != null
+      ? await provider.askNoStream(prompt)
+      : await provider.ask(prompt);
 
   renderAI("DevSense Explanation", formatSections(answer));
   process.stdout.write("\x07");

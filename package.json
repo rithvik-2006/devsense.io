@@ -15,6 +15,7 @@
   "description": "",
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "@mistralai/mistralai": "^1.14.1",
     "boxen": "^8.0.1",
     "chalk": "^5.6.2",
     "cli-highlight": "^2.1.11",
@@ -24,11 +25,13 @@
     "glob": "^13.0.6",
     "gradient-string": "^3.0.0",
     "ignore": "^7.0.5",
+    "inquirer": "^13.3.0",
     "openai": "^6.25.0",
     "ora": "^9.3.0",
     "prompts": "^2.4.2"
   },
   "devDependencies": {
+    "@types/inquirer": "^9.0.9",
     "@types/node": "^25.3.1",
     "@types/prompts": "^2.4.9",
     "ts-node": "^10.9.2",

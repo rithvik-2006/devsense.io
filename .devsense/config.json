@@ -1,4 +1,4 @@
 {
-  "provider": "openai",
-  "model": "gpt-4o-mini"
+  "provider": "mistral",
+  "model": "open-mixtral-8x7b"
 }

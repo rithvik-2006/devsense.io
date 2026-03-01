@@ -2,20 +2,31 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { LLMProvider } from "./provider";
 
 export class GeminiProvider implements LLMProvider {
-  private model;
+  name = "gemini";
+  private modelInstance;
 
-  constructor() {
+  constructor(model: string) {
+    if (!model) {
+      throw new Error("GeminiProvider requires a model");
+    }
     const genAI = new GoogleGenerativeAI(
       process.env.GEMINI_API_KEY!
     );
 
-    this.model = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash"
-    });
+    this.modelInstance = genAI.getGenerativeModel({ model });
+  }
+
+  models(): string[] {
+    return [
+      "gemini-2.5-flash",
+      "gemini-2.0-flash",
+      "gemini-1.5-pro",
+      "gemini-1.5-flash",
+    ];
   }
 
   async ask(prompt: string): Promise<string> {
-    const result = await this.model.generateContentStream(prompt);
+    const result = await this.modelInstance.generateContentStream(prompt);
 
     let output = "";
 
@@ -32,7 +43,7 @@ export class GeminiProvider implements LLMProvider {
 
   /** Returns full response without streaming (for pretty-printed output). */
   async askNoStream(prompt: string): Promise<string> {
-    const result = await this.model.generateContent(prompt);
+    const result = await this.modelInstance.generateContent(prompt);
     return result.response.text();
   }
 }
