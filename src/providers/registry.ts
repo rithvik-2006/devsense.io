@@ -51,8 +51,8 @@ export function getProvider(name: string, model: string): LLMProvider {
 
 export function getProviderChoices() {
   return Object.entries(PROVIDERS).map(([id, meta]) => ({
-    value: id,
     name: meta.label,
+    value: id,
   }));
 }
 

@@ -20,7 +20,7 @@ export async function chat() {
   const files = await scanProject();
   const info = analyzeProject(files);
 
-  printSessionHeader(info, files);
+  printSessionHeader(info, files,config);
   console.log("DevSense Chat\n");
 
   const provider = getProvider(config.provider, config.model);

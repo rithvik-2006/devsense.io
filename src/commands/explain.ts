@@ -40,7 +40,7 @@ export async function explain(fileArg: string) {
   const info = analyzeProject(files);
 
   spinner.stop();
-  printSessionHeader(info, files);
+  printSessionHeader(info, files,config);
 
   console.log(chalk.gray(`📄 File: ${fileArg}\n`));
   console.log(chalk.gray("⚡ Analyzing file..."));

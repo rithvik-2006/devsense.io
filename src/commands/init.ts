@@ -1,6 +1,8 @@
 import fs from "fs";
 import path from "path";
-import inquirer from "inquirer";
+import { select } from "@inquirer/prompts"
+import figlet from "figlet";
+import gradient from "gradient-string";
 import {
   getProviderChoices,
   getModels,
@@ -13,26 +15,36 @@ const CONFIG_PATH = path.join(DEVSENSE_DIR, "config.json");
 const ENV_PATH = path.join(DEVSENSE_DIR, ".env");
 
 export async function initProject() {
-  console.log("\nWelcome to DevSense 🚀\n");
+  const title = figlet.textSync("DevSense", { horizontalLayout: "full" });
+  console.log("\n" + gradient.pastel.multiline(title) + "\n");
 
-  const { providerName } = await inquirer.prompt<{ providerName: string }>([
-    {
-      type: "list",
-      name: "providerName",
-      message: "Select AI Provider:",
-      choices: getProviderChoices(),
-    },
-  ]);
-
-  const { model } = await inquirer.prompt<{ model: string }>([
-    {
-      type: "list",
-      name: "model",
-      message: "Select Model:",
-      choices: getModels(providerName),
-    },
-  ]);
-
+  // const { provider } = await inquirer.prompt<{ provider: string }>([
+  //   {
+  //     type: "list",
+  //     name: "provider",
+  //     message: "Select AI Provider",
+  //     choices: getProviderChoices(),
+  //   },
+  // ]);
+  const provider = await select({
+    message: "Select AI Provider",
+    choices: getProviderChoices(),
+  });
+  // const { model } = await inquirer.prompt<{ model: string }>([
+  //   {
+  //     type: "list",
+  //     name: "model",
+  //     message: "Select Model",
+  //     choices: getModels(provider).map((m) => ({ name: m, value: m })),
+  //   },
+  // ]);
+  const model = await select({
+    message: "Select Model",
+    choices: getModels(provider).map(m => ({
+      name: m,
+      value: m,
+    })),
+  });
   if (!fs.existsSync(DEVSENSE_DIR)) {
     fs.mkdirSync(DEVSENSE_DIR, { recursive: true });
   }
@@ -41,7 +53,7 @@ export async function initProject() {
     CONFIG_PATH,
     JSON.stringify(
       {
-        provider: providerName,
+        provider,
         model,
       },
       null,
@@ -49,7 +61,7 @@ export async function initProject() {
     )
   );
 
-  const envKey = getEnvKeyForProvider(providerName);
+  const envKey = getEnvKeyForProvider(provider);
   const envContent = envKey ? `${envKey}=\n` : "";
   fs.writeFileSync(ENV_PATH, envContent);
 

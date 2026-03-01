@@ -23,7 +23,7 @@ export async function ask(question: string) {
   const info = analyzeProject(files);
 
   spinner.stop();
-  printSessionHeader(info, files);
+  printSessionHeader(info, files,config);
 
   const prompt = buildContext(files, info, question);
 
