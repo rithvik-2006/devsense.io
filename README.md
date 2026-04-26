@@ -1,6 +1,3 @@
-Here is a clean, professionally formatted Markdown version of your README. It uses clear hierarchy, visual separators, and consistent styling to make it highly readable and "copy-paste" ready for GitHub or any other platform.
-
----
 
 # ⚡ DevSense — Autonomous AI for Your Codebase
 
@@ -167,7 +164,3 @@ We welcome feature requests, new provider integrations, and analyzer plugins!
 3. Submit a PR.
 
 **If DevSense helps you, please star the repository ⭐**
-
----
-**🏁 Final Vision:** Understand → Plan → Build → Fix → Ship.  
-*Built for developers who want power, flexibility, and AI without platform lock-in.*
