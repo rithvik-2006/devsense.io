@@ -1,141 +1,157 @@
-# ⚡ DevSense — AI that understands your codebase
-
-**Ask your repository anything — directly from your terminal.**
-
-DevSense scans your project and gives instant AI answers about how your code works.
-
-👉 No IDE plugin  
-👉 No manual searching  
-👉 Just your CLI
-
-**Website:** [devsense.dev](https://devsense-dev.vercel.app/)
+Here is a clean, professionally formatted Markdown version of your README. It uses clear hierarchy, visual separators, and consistent styling to make it highly readable and "copy-paste" ready for GitHub or any other platform.
 
 ---
+
+# ⚡ DevSense — Autonomous AI for Your Codebase
+
+> **Understand. Build. Fix. Ship.** > AI-powered terminal-native coding intelligence for developers who live in the CLI.
+
+DevSense is an open-source AI coding system that helps you:
+* **Understand** unfamiliar repositories instantly
+* **Explain** files, architecture, and dependencies
+* **Chat** with your codebase directly from the terminal
+* **Toggle** between Cloud (Gemini/Mistral) or Local (Ollama) AI models
+* **Scale** toward fully autonomous coding workflows
+
+**👉 No IDE plugin | 👉 No editor lock-in | 👉 No context switching**
+
+**🌐 Website:** [DEVSENSE](https://devsense-dev.vercel.app/)
+
+---
+
 ## 🧠 What DevSense Can Do
 
-### 🔎 Understand Any Repo Instantly
-
-Join a new project and ask:
-
+### 🔎 Understand Any Codebase Instantly
+Get architecture-aware answers using real repository context.
 ```bash
 devsense ask "How does authentication work?"
 ```
 
-Get architecture-level answers using real project context.
-
----
-
-### 📄 Explain Files in Seconds
-
+### 📄 Explain Complex Files in Seconds
+Understand purpose, dependencies, and logic without manual scrolling.
 ```bash
 devsense explain src/auth.ts
 ```
 
-Understand complex files without reading hundreds of lines.
-
----
-
 ### 🗺️ Map Your Project Architecture
-
+Quickly locate core modules like Auth, API, Database, and Services.
 ```bash
 devsense map
 ```
 
-Instantly locate:
-
-* Auth
-* API
-* Database
-* UI
-* Utilities
-
----
-
-### 💬 Chat With Your Codebase
-
+### 💬 Chat With Your Repository
+Interactive AI-powered terminal chat built around your specific codebase.
 ```bash
 devsense chat
 ```
 
-Interactive AI session powered by your repo.
-
 ---
 
-## ⚡ Quick Start (30 seconds)
+## ⚡ Multi-Provider AI Support
+Choose the backend that fits your workflow:
 
-Install globally:
+| **Cloud Providers** | **Local Providers (via Ollama)** |
+| :--- | :--- |
+| Gemini | Llama 3 / CodeLlama |
+| Mistral | DeepSeek / Qwen |
+| OpenAI (Planned) | Gemma / Mistral |
 
-```bash
-npm install -g devsense
-```
-
-Initialize inside any project:
-
+**Run Fully Local:**
 ```bash
 devsense init
+# Select Ollama -> Choose llama3
 ```
-
-Add your Gemini API key:
-
-```
-.devsense/.env
-GEMINI_API_KEY=your_key
-```
-
-Start exploring:
-
-```bash
-devsense summary
-devsense ask "What does this project do?"
-```
-
----
-
-## 🧩 Commands
-
-| Command                     | Description            |
-| --------------------------- | ---------------------- |
-| `devsense init`             | Setup DevSense         |
-| `devsense summary`          | Project overview       |
-| `devsense ask "<question>"` | Ask your repo anything |
-| `devsense explain <file>`   | Explain file purpose   |
-| `devsense chat`             | Interactive session    |
-| `devsense map`              | Project architecture   |
-| `devsense doctor`           | Diagnose setup         |
 
 ---
 
 ## 🚀 Why DevSense?
+Most AI coding tools are trapped inside editors. DevSense is built for **Real Developers**:
 
-Most AI tools live inside editors.
-
-DevSense lives where developers already work:
-
-✅ Terminal native  
-✅ Repo-aware AI  
-✅ Multi-language support  
-✅ Zero IDE lock-in
-
-Think:
-
-**Cursor for your terminal.**
+* ✅ **Terminal-native:** Stays in your flow.
+* ✅ **Repo-aware:** Understands the "big picture."
+* ✅ **Privacy First:** Support for 100% offline local models.
+* ✅ **Extensible:** Open-source architecture ready for custom analyzers.
+* ✅ **Future-Proof:** Moving toward an autonomous "Claude Code" alternative.
 
 ---
 
-## 🧱 Supported Ecosystems
+## ⚙️ System Architecture
+```text
+User ➔ CLI Commands ➔ Project Scanner ➔ Analyzer ➔ Context Builder ➔ AI Provider Layer ➔ Response
+```
 
-* Node.js
-* Python
-* Flutter
-* Rust
-* Extensible analyzer system
+---
+
+## 🧩 Current Core Features
+
+| Feature | Status |
+| :--- | :--- |
+| Repo Scanning & File Explanation | ✅ Complete |
+| Architecture Mapping | ✅ Complete |
+| Gemini / Mistral Support | ✅ Complete |
+| Ollama Local AI Support | ✅ Complete |
+| **Context DB (SQLite)** | 🚧 Phase 1 |
+| **Tool Execution Layer** | 🚧 Planned |
+| **Autonomous Coding Loop** | 🚧 Planned |
+
+---
+
+## 🚀 Quick Start
+
+### 1. Install Globally
+```bash
+npm install -g devsense
+```
+
+### 2. Initialize Inside Your Project
+```bash
+devsense init
+```
+
+### 3. Configure Provider
+* **For Cloud:** Add your key to `.devsense/.env` (e.g., `GEMINI_API_KEY=your_key`)
+* **For Local:** Install [Ollama](https://ollama.com) and pull a model:
+    ```bash
+    ollama pull llama3
+    ```
+
+### 4. Start Using It
+```bash
+devsense summary
+devsense ask "What does this project do?"
+devsense explain src/server.ts
+devsense chat
+```
+
+---
+
+## 🛠️ Commands Reference
+
+| Command | Description |
+| :--- | :--- |
+| `devsense init` | Initialize project configuration |
+| `devsense summary` | Get a high-level project overview |
+| `devsense ask "<q>"` | Ask questions about the repo |
+| `devsense explain <f>` | Detailed explanation of a specific file |
+| `devsense chat` | Open interactive repo chat |
+| `devsense map` | Visualize project architecture |
+| `devsense doctor` | Diagnose setup and model availability |
+
+---
+
+## 🗺️ Roadmap
+
+* **Phase 0 ✅ Local AI:** Ollama integration and multi-backend support.
+* **Phase 1 🚧 Context DB:** SQLite per-project memory and incremental scans.
+* **Phase 2 🚧 Tool Layer:** Capability to read/write files and run terminal commands.
+* **Phase 3 🚧 Diff Editing:** Safe patches and incremental code modifications.
+* **Phase 4 🚧 Autonomous Agent:** Generate ➔ Execute ➔ Debug ➔ Retry loop.
 
 ---
 
 ## 🛠️ Build From Source
-
 ```bash
-git clone <repo>
+git clone https://github.com/your-repo/devsense
 cd devsense
 npm install
 npm run build
@@ -144,16 +160,14 @@ npm link
 
 ---
 
-## ⭐ Contributing
+## 🤝 Contributing & Support
+We welcome feature requests, new provider integrations, and analyzer plugins!
+1. Fork the repo.
+2. Create your feature branch.
+3. Submit a PR.
 
-⭐ **Trusted by early developers exploring AI-native workflows.**
-
-Feedback, issues, and ideas are welcome.
-
-If DevSense helped you, consider starring the repo ⭐
+**If DevSense helps you, please star the repository ⭐**
 
 ---
-
-## 📜 License
-
-ISC
+**🏁 Final Vision:** Understand → Plan → Build → Fix → Ship.  
+*Built for developers who want power, flexibility, and AI without platform lock-in.*

@@ -23,17 +23,27 @@ export async function ask(question: string) {
   const info = analyzeProject(files);
 
   spinner.stop();
-  printSessionHeader(info, files,config);
+  const provider = getProvider(config.provider, config.model);
+  printSessionHeader(info, files, config, provider.isLocal);
 
   const prompt = buildContext(files, info, question);
 
-  const provider = getProvider(config.provider, config.model);
   console.log("\n" + badge("AI") + " DevSense:\n");
-  //await provider.ask(prompt);
-  const result = await provider.ask(prompt);
-  if (result && result.length > 0){
-    console.log(result);
+  
+  try {
+    const result = await provider.ask(prompt);
+    if (result && result.length > 0){
+      console.log(result);
+    }
+  } catch (e: any) {
+    if (config.provider === "ollama") {
+      console.log(`\n❌ Selected Ollama model '${config.model}' not found or Ollama is not running.`);
+      console.log(`💡 Run \`ollama pull ${config.model}\` to download it, or ensure the Ollama app is open.`);
+    } else {
+      console.error(`\n❌ Error: ${e.message}`);
+    }
   }
+
   process.stdout.write("\x07");
   showCommandSuggestions();
 }

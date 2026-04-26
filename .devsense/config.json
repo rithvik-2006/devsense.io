@@ -1,4 +1,4 @@
 {
-  "provider": "mistral",
-  "model": "open-mixtral-8x7b"
+  "provider": "ollama",
+  "model": "qwen3.5:latest"
 }

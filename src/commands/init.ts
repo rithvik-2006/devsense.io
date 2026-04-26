@@ -14,33 +14,21 @@ const DEVSENSE_DIR = ".devsense";
 const CONFIG_PATH = path.join(DEVSENSE_DIR, "config.json");
 const ENV_PATH = path.join(DEVSENSE_DIR, ".env");
 
+
 export async function initProject() {
   const title = figlet.textSync("DevSense", { horizontalLayout: "full" });
   console.log("\n" + gradient.pastel.multiline(title) + "\n");
 
-  // const { provider } = await inquirer.prompt<{ provider: string }>([
-  //   {
-  //     type: "list",
-  //     name: "provider",
-  //     message: "Select AI Provider",
-  //     choices: getProviderChoices(),
-  //   },
-  // ]);
   const provider = await select({
     message: "Select AI Provider",
     choices: getProviderChoices(),
   });
-  // const { model } = await inquirer.prompt<{ model: string }>([
-  //   {
-  //     type: "list",
-  //     name: "model",
-  //     message: "Select Model",
-  //     choices: getModels(provider).map((m) => ({ name: m, value: m })),
-  //   },
-  // ]);
+
+  const models = await getModels(provider);
+
   const model = await select({
     message: "Select Model",
-    choices: getModels(provider).map(m => ({
+    choices: models.map((m: string) => ({
       name: m,
       value: m,
     })),

@@ -1,6 +1,16 @@
 import chalk from "chalk";
+import { execSync } from "child_process";
 import { scanProject } from "../core/scanner";
 import { analyzeProject } from "../core/analyzer";
+
+function checkOllamaInstalled() {
+  try {
+    execSync("ollama --version", { stdio: "ignore" });
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 export async function doctor() {
   const files = await scanProject();
@@ -19,6 +29,9 @@ export async function doctor() {
 
   if (hasFramework) console.log(chalk.green("✔") + " Supported framework found");
   else console.log(chalk.yellow("⚠") + " No framework detected");
+
+  if (checkOllamaInstalled()) console.log(chalk.green("✔") + " Ollama Installed");
+  else console.log(chalk.red("✖") + " Ollama Not Found");
 
   console.log(chalk.green("✔") + " DevSense ready");
 }

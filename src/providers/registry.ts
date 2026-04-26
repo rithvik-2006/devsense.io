@@ -1,52 +1,49 @@
 import { LLMProvider } from "./provider";
 import { GeminiProvider } from "./gemini";
 import { MistralProvider } from "./mistral";
+import { OllamaProvider } from "./ollama";
 
 type ProviderConstructor = new (model: string) => LLMProvider;
 
 interface ProviderMeta {
   label: string;
-  models: string[];
-  envKey: string;
-  create: ProviderConstructor;
+  models: string[] | (() => Promise<string[]>);
+  envKey: string | null;
+  create: ProviderConstructor | ((model: string) => LLMProvider);
 }
 
-/**
- * 🔥 Single source of truth
- */
 export const PROVIDERS: Record<string, ProviderMeta> = {
   gemini: {
     label: "Gemini (Google)",
-    models: [
-      "gemini-2.5-flash",
-      "gemini-2.0-flash",
-      "gemini-1.5-pro",
-      "gemini-1.5-flash",
-    ],
+    models: ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-pro", "gemini-1.5-flash"],
     envKey: "GEMINI_API_KEY",
     create: GeminiProvider,
   },
-
   mistral: {
     label: "Mistral",
-    models: [
-      "mistral-small-latest",
-      "mistral-medium-latest",
-      "open-mixtral-8x7b",
-    ],
+    models: ["mistral-small-latest", "mistral-medium-latest", "open-mixtral-8x7b"],
     envKey: "MISTRAL_API_KEY",
     create: MistralProvider,
+  },
+  ollama: {
+    label: "Ollama (Local)",  // ← was `name`, should be `label`
+    envKey: null,
+    models: async () => {
+      const provider = new OllamaProvider("");
+      return await provider.models();
+    },
+    create: (model: string) => new OllamaProvider(model),
   },
 };
 
 export function getProvider(name: string, model: string): LLMProvider {
   const meta = PROVIDERS[name];
+  if (!meta) throw new Error(`Unknown provider: ${name}`);
 
-  if (!meta) {
-    throw new Error(`Unknown provider: ${name}`);
-  }
-
-  return new meta.create(model);
+  // Works for both `new Class(model)` and plain factory `(model) => instance`
+  return meta.create instanceof Function && meta.create.prototype
+    ? new (meta.create as ProviderConstructor)(model)
+    : (meta.create as (model: string) => LLMProvider)(model);
 }
 
 export function getProviderChoices() {
@@ -56,16 +53,13 @@ export function getProviderChoices() {
   }));
 }
 
-export function getModels(providerId: string): string[] {
+export async function getModels(providerId: string): Promise<string[]> {
   const meta = PROVIDERS[providerId];
+  if (!meta) throw new Error(`Unknown provider: ${providerId}`);
 
-  if (!meta) {
-    throw new Error(`Unknown provider: ${providerId}`);
-  }
-
-  return meta.models;
+  return typeof meta.models === "function" ? await meta.models() : meta.models;
 }
 
-export function getEnvKeyForProvider(providerId: string): string | undefined {
+export function getEnvKeyForProvider(providerId: string): string | null | undefined {
   return PROVIDERS[providerId]?.envKey;
 }
